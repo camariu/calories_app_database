@@ -1,0 +1,19 @@
+const app = require("./app");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+const PORT = process.env.PORT_SERVER || 5000;
+const URL_DB = process.env.DB_URL;
+
+mongoose
+  .connect(URL_DB)
+  .then(() => {
+    console.log("Serverul MongoDB ruleaza");
+    app.listen(PORT, () => {
+      console.log(`Server is running. Use our API on port: ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(`Server not running. Error:${err.message}`);
+    process.exit(1);
+  });
