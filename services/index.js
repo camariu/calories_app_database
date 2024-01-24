@@ -1,14 +1,14 @@
 
 const User = require("./schemas/schemaUsers.js")
 
-const createUser = async ({ email, password }) => {
+const createUser = async ({ name, email, password }) => {
   const userExistent = await User.findOne({ email });
 
   if (userExistent) {
     throw new Error("Email already in use!");
   }
 
-  const newUser = new User({ email, password });
+  const newUser = new User({ name, email, password });
   newUser.setPassword(password);
   return await newUser.save();
 };

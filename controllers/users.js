@@ -14,10 +14,12 @@ const path = require("path");
 
 const createUserController = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const {name, email, password } = req.body;
     const result = await createUser({
+      name,
       email,
       password,
+      
     });
     const payload = { email: result.email };
     const token = jwt.sign(payload, secret, { expiresIn: "1h" });
@@ -34,7 +36,7 @@ const createUserController = async (req, res, next) => {
   } catch (error) {
     res.status(409).json({
       status: 409,
-      error: "Email in use!",
+      error: "Email in use!!!",
     });
   }
 };
